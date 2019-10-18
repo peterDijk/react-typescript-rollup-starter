@@ -1,2 +1,1 @@
-
-# Preact w/ Typescript bundled by Rollup starter
+# React w/ Typescript bundled by Rollup starter
