@@ -1,6 +1,7 @@
-import { h, render } from 'preact';
-import { Main } from './Main';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { App } from "./App";
 
-const root = document.getElementById('root') as HTMLElement;
+const rootEl = document.getElementById("root");
 
-render(<Main />, root);
+ReactDOM.render(<App />, rootEl);

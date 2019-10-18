@@ -7,6 +7,7 @@ import livereload from "rollup-plugin-livereload";
 import htmlTemplate from "rollup-plugin-generate-html-template";
 import { uglify } from "rollup-plugin-uglify";
 import copy from "rollup-plugin-copy";
+import babel from "rollup-plugin-babel";
 
 export default {
   input: "./src/index.tsx",
@@ -14,14 +15,34 @@ export default {
     file: `dist/app.bundle.js`,
     format: "iife",
     name: "bundle",
+    exports: "named",
     sourcemap: true,
     treeshake: true
   },
   plugins: [
-    nodeResolve(),
-    commonjs(),
+    nodeResolve({ browser: true }),
     typescript({
-      objectHashIgnoreUnknownHack: true
+      // rollupCommonJSResolveHack: true,
+      // objectHashIgnoreUnknownHack: true,
+      clean: true
+    }),
+    commonjs({
+      include: ["node_modules/**"],
+      exclude: ["node_modules/process-es6/**"],
+      namedExports: {
+        "node_modules/react/index.js": [
+          "Children",
+          "Component",
+          "PropTypes",
+          "createElement",
+          "useState",
+          "useEffect"
+        ],
+        "node_modules/react-dom/index.js": ["render"]
+      }
+    }),
+    babel({
+      presets: ["@babel/preset-env"]
     }),
     htmlTemplate({
       template: "./template.html",
