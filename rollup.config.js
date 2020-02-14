@@ -9,6 +9,8 @@ import { uglify } from "rollup-plugin-uglify";
 import copy from "rollup-plugin-copy";
 import babel from "rollup-plugin-babel";
 
+const production = !process.env.ROLLUP_WATCH;
+
 export default {
   input: "./src/index.tsx",
   output: {
@@ -17,14 +19,15 @@ export default {
     name: "bundle",
     exports: "named",
     sourcemap: true,
-    treeshake: true
+    treeshake: production
   },
   plugins: [
-    nodeResolve({ browser: true }),
+    // nodeResolve({ browser: true }),
+    nodeResolve(),
     typescript({
       // rollupCommonJSResolveHack: true,
-      // objectHashIgnoreUnknownHack: true,
-      clean: true
+      objectHashIgnoreUnknownHack: true
+      // clean: true
     }),
     commonjs({
       include: ["node_modules/**"],
@@ -49,18 +52,22 @@ export default {
       target: "index.html"
     }),
     copy({
-      targets: [{ src: "src/css", dest: "dist" }]
+      targets: [
+        { src: "src/css", dest: "dist" },
+        { src: "src/images", dest: "dist" }
+      ]
     }),
     replace({
       "process.env.NODE_ENV": JSON.stringify("production")
     }),
     uglify(),
-    serve({
-      contentBase: "./dist",
-      open: true,
-      host: "localhost",
-      port: 8080
-    }),
-    livereload()
+    !production &&
+      serve({
+        contentBase: "./dist",
+        open: true,
+        host: "localhost",
+        port: 4000
+      })
+    // livereload())
   ]
 };
