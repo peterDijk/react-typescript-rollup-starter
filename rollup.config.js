@@ -22,12 +22,9 @@ export default {
     treeshake: production
   },
   plugins: [
-    // nodeResolve({ browser: true }),
     nodeResolve(),
     typescript({
-      // rollupCommonJSResolveHack: true,
       objectHashIgnoreUnknownHack: true
-      // clean: true
     }),
     commonjs({
       include: ["node_modules/**"],
@@ -68,6 +65,5 @@ export default {
         host: "localhost",
         port: 4000
       })
-    // livereload())
   ]
 };
