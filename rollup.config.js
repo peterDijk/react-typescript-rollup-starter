@@ -7,6 +7,7 @@ import htmlTemplate from "rollup-plugin-generate-html-template";
 import { uglify } from "rollup-plugin-uglify";
 import copy from "rollup-plugin-copy";
 import babel from "rollup-plugin-babel";
+import css from 'rollup-plugin-css-only';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -40,6 +41,7 @@ export default {
         "node_modules/react-dom/index.js": ["render"]
       }
     }),
+    css({ output: 'dist/css/bundle.css' }),
     babel({
       presets: ["@babel/preset-env"]
     }),
@@ -58,11 +60,11 @@ export default {
     }),
     uglify(),
     !production &&
-      serve({
-        contentBase: "./dist",
-        open: true,
-        host: "localhost",
-        port: 4000
-      })
+    serve({
+      contentBase: "./dist",
+      open: true,
+      host: "localhost",
+      port: 4000
+    })
   ]
 };
