@@ -51,7 +51,6 @@ export default {
     }),
     copy({
       targets: [
-        { src: "src/css", dest: "dist" },
         { src: "src/images", dest: "dist" }
       ]
     }),
