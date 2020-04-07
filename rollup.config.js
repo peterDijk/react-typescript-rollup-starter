@@ -20,12 +20,12 @@ export default {
     name: "bundle",
     exports: "named",
     sourcemap: true,
-    treeshake: production
+//    treeshake: production
   },
   plugins: [
     postcss({
-      plugins: [
-        require('tailwindcss')
+     plugins: [
+//        require('tailwindcss')
       ]
     }),
     nodeResolve(),
