@@ -5,7 +5,9 @@ import commonjs from "rollup-plugin-commonjs";
 import serve from "rollup-plugin-serve";
 import livereload from 'rollup-plugin-livereload';
 import htmlTemplate from "rollup-plugin-generate-html-template";
-import { uglify } from "rollup-plugin-uglify";
+import {
+  uglify
+} from "rollup-plugin-uglify";
 import copy from "rollup-plugin-copy";
 import babel from "rollup-plugin-babel";
 import postcss from 'rollup-plugin-postcss';
@@ -20,12 +22,12 @@ export default {
     name: "bundle",
     exports: "named",
     sourcemap: true,
-//    treeshake: production
+    //    treeshake: production
   },
   plugins: [
     postcss({
-     plugins: [
-//        require('tailwindcss')
+      plugins: [
+        require('tailwindcss')
       ]
     }),
     nodeResolve(),
@@ -57,7 +59,10 @@ export default {
     copy({
       targets: [
         // { src: "src/css", dest: "dist" },
-        { src: "src/images", dest: "dist" }
+        {
+          src: "src/images",
+          dest: "dist"
+        }
       ]
     }),
     replace({
@@ -72,7 +77,9 @@ export default {
         host: "localhost",
         port: 4000
       }),
-      livereload({ watch: 'dist'})
-      )
+      livereload({
+        watch: 'dist'
+      })
+    )
   ]
 };
