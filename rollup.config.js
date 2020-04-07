@@ -3,10 +3,12 @@ import replace from "rollup-plugin-replace";
 import nodeResolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import serve from "rollup-plugin-serve";
+import livereload from 'rollup-plugin-livereload';
 import htmlTemplate from "rollup-plugin-generate-html-template";
 import { uglify } from "rollup-plugin-uglify";
 import copy from "rollup-plugin-copy";
 import babel from "rollup-plugin-babel";
+import postcss from 'rollup-plugin-postcss';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -21,6 +23,9 @@ export default {
     treeshake: production
   },
   plugins: [
+    postcss({
+      extensions: ['.css'],
+    }),
     nodeResolve(),
     typescript({
       objectHashIgnoreUnknownHack: true
@@ -58,11 +63,14 @@ export default {
     }),
     uglify(),
     !production &&
+    (
       serve({
         contentBase: "./dist",
         open: true,
         host: "localhost",
         port: 4000
-      })
+      }),
+      livereload({ watch: 'dist'})
+      )
   ]
 };
