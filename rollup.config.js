@@ -24,7 +24,9 @@ export default {
   },
   plugins: [
     postcss({
-      extensions: ['.css'],
+      plugins: [
+        require('tailwindcss')
+      ]
     }),
     nodeResolve(),
     typescript({
@@ -54,7 +56,7 @@ export default {
     }),
     copy({
       targets: [
-        { src: "src/css", dest: "dist" },
+        // { src: "src/css", dest: "dist" },
         { src: "src/images", dest: "dist" }
       ]
     }),
