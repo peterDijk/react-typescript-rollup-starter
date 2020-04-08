@@ -29,7 +29,7 @@ export default {
   plugins: [
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      'process.env.PUBLIC_URL': JSON.stringify('https://gtsport-stats-pwa.netlify.app'),
+      // 'process.env.PUBLIC_URL': JSON.stringify('https://'),
     }),
     htmlTemplate({
       template: './template.html',
